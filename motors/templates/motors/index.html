@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+<link rel="stylesheet" href="{% static 'motors/c3.css' %}">
+</head>
+<body>
+<script src="{% static "motors/c3.js" %}"></script>
+<script src="{% static "motors/d3.min.js" %}"></script>
+
+Mean force:
+<select name="Mean Force">
+    <option value=0> 0</option>
+    <option value=3> 3</option>
+</select>
+
+Standard deviation:
+<select name="Std">
+  <option value = " 0.005"> 0.005</option>
+  <option value=" 0.5"> 0.5</option>
+</select>
+
+<form method="POST" action="/motors/">
+    <button type="submit">Go</button>
+</form>
+<div id="chart"></div>
+<script>
+console.log({{ data|safe }})
+var chart = c3.generate({
+    data: {
+        x: 'x',
+        columns: [ {{ velocities|safe }},
+                    {{ densities|safe }}],
+    },
+    axis: {
+      x: {
+        label: 'Density'
+      },
+      y: {
+        label: 'Current'
+      }
+    }
+});
+
+</script>
+
+
+</body>
+</html>

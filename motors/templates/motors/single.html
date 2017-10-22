@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+<link rel="stylesheet" href="{% static 'motors/c3.css' %}">
+</head>
+
+<body>
+<script src="{% static "motors/c3.js" %}"></script>
+<script src="{% static "motors/d3.min.js" %}"></script>
+<div id="chart"></div>
+<script>
+var chart = c3.generate({
+    data: {
+        xs: {
+          'forwardDwell': 'forwardForce',
+          'backDwell': 'backForce',
+          'detachDwell': 'detachForce'
+        },
+        columns: [ {{ forwardForce|safe }},
+                    {{ forwardDwells|safe }},
+                    {{ backForce|safe }},
+                    {{ backDwells|safe}},
+                    {{ detachForce|safe }},
+                    {{ detachDwells|safe }}],
+        type: 'scatter'
+    },
+bindto: '#chart'
+});
+
+</script>
+
+<div id="chart2"></div>
+<script>
+var chart2 = c3.generate({
+    data: {
+        x : 'ratioForce',
+        columns: [ {{ ratioForce|safe }},
+                    {{ ratioValue|safe }},
+],
+    },
+bindto: '#chart2'
+});
+
+</script>
+
+</body>
+</html>
